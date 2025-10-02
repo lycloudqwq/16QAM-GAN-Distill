@@ -23,10 +23,10 @@ def plot_constellation(csvfile, title):
 
 if __name__ == "__main__":
     # Original 16QAM Constellation
-    # plot_constellation("test5.csv", "Original Noisy 16QAM Constellation")
+    plot_constellation("test5.csv", "Original Noisy 16QAM Constellation")
 
     # SVM Distilled Constellation
     # plot_constellation("../dd_svm/distilled_dataset.csv", "SVM Distilled 16QAM Constellation")
 
     # GAN Distilled Constellation
-    plot_constellation("../dd_gan/distilled_test5_2000.csv", "Original Noisy 16QAM Constellation")
+    plot_constellation("../dd_gan/distilled_test5_2000.csv", "GAN Distilled 16QAM Constellation")

@@ -10,21 +10,21 @@ from toolbox.csv_loader import load_data
 
 data = load_data("../toolbox/test5.csv")
 xs, ys, bits = data["x"], data["y"], data["bits"]
-X_all = np.column_stack((xs, ys)).astype(np.float64)
+x_all = np.column_stack((xs, ys)).astype(np.float64)
 y_all = np.asarray(bits, dtype=np.int64)
-idx_all = np.arange(len(X_all))
+idx_all = np.arange(len(x_all))
 
 idx_train, idx_test, y_train, y_test = train_test_split(
     idx_all, y_all, test_size=0.1, random_state=42, stratify=y_all
 )
-X_train = X_all[idx_train]
-X_test = X_all[idx_test]
+x_train = x_all[idx_train]
+X_test = x_all[idx_test]
 
 clf = Pipeline([
     ("scaler", StandardScaler()),
     ("svm", SVC(kernel="rbf", C=1.0, gamma="scale", random_state=42))
 ])
-clf.fit(X_train, y_train)
+clf.fit(x_train, y_train)
 y_pred = clf.predict(X_test)
 print("SVM Accuracy: {:.2f}%".format(accuracy_score(y_test, y_pred) * 100))
 
@@ -32,7 +32,7 @@ print("SVM Accuracy: {:.2f}%".format(accuracy_score(y_test, y_pred) * 100))
 support_pos_in_train = clf.named_steps["svm"].support_
 support_idx_global = idx_train[support_pos_in_train]
 
-distilled_X = X_all[support_idx_global]
+distilled_X = x_all[support_idx_global]
 distilled_y = y_all[support_idx_global]
 
 student_clf = Pipeline([
